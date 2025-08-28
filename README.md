@@ -78,7 +78,7 @@ Open browser and navigate to: http://localhost:8083
 
 ## 📸 Demo Video
 
-**https://img.youtube.com/vi/YOUR_VIDEO_ID/0.jpg**
+**[https://img.youtube.com/vi/YOUR_VIDEO_ID/0.jpg](https://youtu.be/o2golzE4osY)**
 
 ---
 
