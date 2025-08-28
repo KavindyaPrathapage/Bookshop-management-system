@@ -48,8 +48,6 @@ Bookshop-management-system/
 │   └── index.html
 └── README.md
 
-
-
 ---
 
 ## 🗃️ Database Schema
@@ -66,84 +64,79 @@ Bookshop-management-system/
 ## 🔧 Setup & Installation
 
 ### 1. Clone the repository
-```bash
+bash
 git clone https://github.com/your-username/bookshop-management-system.git
 cd bookshop-management-system
 
-Database Setup
+### 2. Database Setup
 
 Install MySQL and create database:
 
 sql
 CREATE DATABASE my_database;
-Configure Application
+### 3.Configure Application
 
 Update backend/src/main/resources/application.properties with your MySQL credentials
 
-Run the Application
+### 4.Run the Application
 
 bash
 cd backend
 mvn spring-boot:run
-Access the Application
+### 5.Access the Application
 
 Open browser and navigate to: http://localhost:8083
 
-🌐 API Endpoints
-POST /api/login - User authentication
+---
 
-POST /api/register - User registration with email/phone validation
+##🌐 API Endpoints
+-POST /api/login - User authentication
+-POST /api/register - User registration with email/phone validation
+-GET /api/customers - Retrieve customer data
+-POST /api/items - Add new inventory items
+-POST /api/purchases - Create new transactions
 
-GET /api/customers - Retrieve customer data
+---
 
-POST /api/items - Add new inventory items
-
-POST /api/purchases - Create new transactions
-
-📸 Demo Video
+##📸 Demo Video
 https://img.youtube.com/vi/YOUR_VIDEO_ID/0.jpg
 
-🚦 Validation Features
-Email Validation: Ensures proper Gmail/email format
+---
 
-Phone Validation: Uses country code API to validate international numbers
+##🚦 Validation Features
+-Email Validation: Ensures proper Gmail/email format
+-Phone Validation: Uses country code API to validate international numbers
+-Input Sanitization: Prevents SQL injection and XSS attacks
+-Session Management: Secure user session handling
 
-Input Sanitization: Prevents SQL injection and XSS attacks
+---
 
-Session Management: Secure user session handling
+##📦 Dependencies
+-Spring Boot Web
+-Spring Data JPA
+-MySQL Connector
+-ModelMapper
+-Lombok
+-Validation API
 
-📦 Dependencies
-Spring Boot Web
+---
 
-Spring Data JPA
+##👨‍💻 Development
+-Backend: Spring Boot 3.5.3
+-Java Version: 18
+-Database: MySQL 8.0+
+-Frontend: Vanilla JS with modern CSS
 
-MySQL Connector
+---
 
-ModelMapper
+##📝 License
+-This project is licensed under the MIT License - see the LICENSE file for details.
 
-Lombok
+---
 
-Validation API
-
-👨‍💻 Development
-Backend: Spring Boot 3.5.3
-
-Java Version: 18
-
-Database: MySQL 8.0+
-
-Frontend: Vanilla JS with modern CSS
-
-📝 License
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-🤝 Contributing
-Fork the project
-
-Create your feature branch (git checkout -b feature/AmazingFeature)
-
-Commit your changes (git commit -m 'Add some AmazingFeature')
-
-Push to the branch (git push origin feature/AmazingFeature)
-
-Open a Pull Request
+##🤝 Contributing
+-Fork the project
+-Create your feature branch (git checkout -b feature/AmazingFeature)
+-Commit your changes (git commit -m 'Add some AmazingFeature')
+-Push to the branch (git push origin feature/AmazingFeature)
+-Open a Pull Request
