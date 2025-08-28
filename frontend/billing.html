@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Pahana Edu</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <link rel="stylesheet" href="style2.css">
+  <!-- jQuery and Bootstrap -->
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Load auth services first -->
+<script src="authService.js"></script>
+<script src="authGuard.js"></script>
+
+</head>
+
+<body class="p-4">
+  <header>
+    <nav class="navbar section-content">
+      <h2 class="logo-text">📚 Pahana Edu</h2>
+      <ul class="nav-menu">
+        <button id="menu-close-button" class="fas fa-times"></button>
+        <li class="nav-item"><a href="customer-details.html" class="nav-link">Customer Details</a></li>
+        <li class="nav-item"><a href="SystemUser.html" class="nav-link">User Details</a></li>
+        <li class="nav-item"><a href="manage-items.html" class="nav-link">Manage Items</a></li>
+        <li class="nav-item"><a href="billing.html" class="nav-link">Billing</a></li>
+        <li class="nav-item"><a href="help.html" class="nav-link">Help</a></li>
+        <li class="nav-item"><a href="#" id="logout-link" class="nav-link">Logout</a></li>
+
+      </ul>
+      <button id="menu-open-button" class="fas fa-bars"></button>
+    </nav>
+  </header>
+
+  <img class="logo" src="https://c0.wallpaperflare.com/preview/484/270/562/read-book-books-book-store.jpg" />
+
+  <div class="billing-wrapper">
+    <div class="form-box">
+      <h2 class="mb-4">Billing</h2>
+      <div class="billing-form">
+        <form id="billingForm" autocomplete="off" onsubmit="return false;">
+          <div class="form-row">
+            <div class="form-group col-md-4 position-relative">
+              <label for="customerSearch">Customer</label>
+              <input id="customerSearch" class="form-control" placeholder="Search customer by name..." />
+              <div id="custSuggestions" class="suggestions"></div>
+            </div>
+
+            <div class="form-group col-md-2">
+              <label for="discountInput">Discount (%)</label>
+              <input id="discountInput" type="number" class="form-control" min="0" value="0" />
+            </div>
+
+            <div class="form-group col-md-3">
+              <input id="invoiceDate" type="hidden" class="form-control" />
+            </div>
+
+          </div>
+
+          <!-- Item add section -->
+          <div class="form-row align-items-end">
+            <div class="form-group col-md-4 position-relative">
+              <label for="itemSearch">Add Item</label>
+              <input id="itemSearch" class="form-control" placeholder="Type item code or name..." />
+              <div id="itemsDropdown" class="items-dropdown"></div>
+            </div>
+            <div class="form-group col-md-2">
+              
+              <input id="manualPrice" type="hidden" step="0.01" min="0" class="form-control" placeholder="Price" />
+            </div>
+            
+            <div>
+              <label for="Qtylabel" class="col-form-label">Quantity</label>
+            <input id="manualQty" class="form-control form-control-sm" 
+              type="number" 
+              min="1" 
+              value="1">
+            </div>
+            <div class="form-group col-md-2">
+              <button id="addManualBtn" class="btn btn-primary btn-block">Add</button>
+
+              <div class="form-group col-md-3 text-right align-self-end">
+              <button id="clearBtn" class="btn btn-outline-secondary">Clear</button>
+            </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Cart table (simplified) -->
+    <div class="myCart">
+              <h2>Your Cart</h2>
+      <div class="cart-table">
+        <div class="table-responsive">
+          <table class="receipt-table">
+            <thead class="thead-dark">
+              <tr>
+                <th class="text-center">Item</th>
+                <th class="text-center">Price</th>
+                <th class="text-center">Quantity</th>
+                <th class="text-center">Line Total</th>
+                <th class="text-center">Action</th>
+              </tr>
+            </thead>
+            <tbody id="cartBody">
+              <!-- Items will be added here dynamically -->
+            </tbody>
+          </table>
+        </div>
+        <div class="button-group">
+          <div class="myButtons">
+            <button id="saveBtn" class="btn btn-success">Save</button>
+            <button id="saveCalcBtn" class="btn btn-primary">Finish</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Invoice Modal -->
+<div class="box">
+  <div class="modal fade" id="invoiceModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="myclose" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+    <div class="modal-body" id="invoiceBody">
+      <div class="invoice-header">
+          <h2>PAHANA EDU</h2>
+          <p>123 Book Street,</p>
+          <p>Colombo,</p>
+          <p>Sri Lanka.</p>
+      </div>
+      
+      <div class="invoice-meta">
+          <div>
+              <strong>Invoice #:</strong> <span id="invoiceNumber"></span><br>
+              <strong>Date:</strong> <span id="invoiceDateDisplay"></span>
+          </div>
+          <div>
+              <strong>Customer:</strong> <span id="invoiceCustomer"></span><br>
+          </div>
+      </div>
+      
+      <table class="receipt-table">
+          <thead>
+              <tr>
+                  <th class="text-center">Description</th>
+                  <th class="text-center">Unit Price</th>
+                  <th class="text-center">Quantity</th>
+                  <th class="text-center">Amount</th>
+              </tr>
+          </thead>
+          <tbody id="invoiceItems">
+              <!-- Items will be added here dynamically -->
+          </tbody>
+          <tfoot>
+              <tr>
+                  <td colspan="3" class="text-right"><strong>Subtotal:</strong></td>
+                  <td class="text-right" id="invoiceSubtotal"></td>
+              </tr>
+              <tr>
+                  <td colspan="3" class="text-right"><strong>Discount:</strong></td>
+                  <td class="text-right" id="invoiceDiscount"></td>
+              </tr>
+              <tr class="receipt-total">
+                  <td colspan="3" class="text-right"><strong>TOTAL:</strong></td>
+                  <td class="text-right" id="invoiceTotal"></td>
+              </tr>
+          </tfoot>
+      </table>
+      
+      <div class="text-center mt-4">
+          <p>Thank you for your purchase!</p>
+      </div>
+      <span id="close" class="hidden"></span>
+  </div>
+</div>
+      
+      <div class="modal-footer">
+        <button id="printInvoiceBtn" type="button" class="btn btn-secondary">
+          <i class="fas fa-print"></i> Print
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <script type="text/JavaScript">
+    // Only need to handle the cross button now
+document.querySelector('#close').addEventListener('click', () => {
+  document.querySelector('.box').style.display = 'none';
+  // Also hide the Bootstrap modal properly
+  $('#invoiceModal').modal('hide');
+});
+
+// Save & Calculate button handler
+document.querySelector('#saveCalcBtn').addEventListener('click', () => {
+  // Show both the box and Bootstrap modal
+  document.querySelector('.box').style.display = 'block';
+  $('#invoiceModal').modal('show');
+});
+  </script>
+
+  <script src="billing.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+/* ---------- Global State ---------- */
+let customers = []; // Loaded from backend
+let items = [];     // Loaded from backend
+let cart = [];      // { itemCode, itemName, itemPrice, quantity }
+let selectedCustomer = null;
+let selectedItemForCart = null;
+
+/* ---------- Helper Functions ---------- */
+function fetchJson(url) {
+  return fetch(url).then(r => r.json());
+}
+
+function money(x) { 
+  return Number(x).toFixed(2); 
+}
+
+function escapeHtml(str) { 
+  if(str == null) return ''; 
+  return String(str).replace(/[&<>"']/g, m => 
+    ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])); 
+}
+
+/* ---------- Initial Load ---------- */
+document.addEventListener('DOMContentLoaded', () => {
+  // Set default date/time
+  const dt = new Date();
+  const isoLocal = new Date(dt.getTime() - dt.getTimezoneOffset()*60000).toISOString().slice(0,16);
+  document.getElementById('invoiceDate').value = isoLocal;
+
+  loadCustomers();
+  loadItems();
+});
+
+/* ---------- Data Loading ---------- */
+function loadCustomers() {
+  fetchJson('http://localhost:8083/api/v1/getcustomers')
+    .then(data => { customers = data || []; })
+    .catch(e => { console.error('loadCustomers', e); customers = []; });
+}
+
+function loadItems() {
+  fetchJson('http://localhost:8083/api/v1/getitems')
+    .then(data => { items = data || []; })
+    .catch(e => { console.error('loadItems', e); items = []; });
+}
+
+/* ---------- Customer Search ---------- */
+const custInput = document.getElementById('customerSearch');
+const custBox = document.getElementById('custSuggestions');
+let custActive = -1;
+
+custInput.addEventListener('input', onCustInput);
+custInput.addEventListener('keydown', onCustKeyDown);
+custInput.addEventListener('focus', () => showCustSuggestions(customers.slice(0,50)));
+document.addEventListener('click', (e) => {
+  if (!custInput.contains(e.target) && !custBox.contains(e.target)) hideCustSuggestions();
+});
+
+function onCustInput(e) {
+  const q = e.target.value.trim().toLowerCase();
+  if(!q) return showCustSuggestions(customers.slice(0,50));
+  const filtered = customers.filter(c => (c.customerName||'').toLowerCase().includes(q));
+  showCustSuggestions(filtered.slice(0,50));
+}
+
+function showCustSuggestions(list) {
+  custBox.innerHTML = '';
+  custActive = -1;
+  if(!list || list.length===0) { custBox.style.display='none'; return; }
+  
+  list.forEach((c, idx) => {
+    const div = document.createElement('div');
+    div.className = 'suggest-item';
+    div.innerHTML = `<strong>${escapeHtml(c.customerName)}</strong>`;
+    div.addEventListener('click', () => { selectCustomer(c); hideCustSuggestions(); });
+    div.addEventListener('mouseenter', () => setCustActive(idx));
+    custBox.appendChild(div);
+  });
+  custBox.style.display = 'block';
+}
+
+function hideCustSuggestions() { 
+  custBox.style.display='none'; 
+  custActive=-1; 
+}
+
+function setCustActive(i) {
+  const items = custBox.querySelectorAll('.suggest-item');
+  items.forEach(x => x.classList.remove('active'));
+  if(i >= 0 && i < items.length) { 
+    items[i].classList.add('active'); 
+    custActive = i; 
+  }
+}
+
+function onCustKeyDown(e) {
+  const itemsEls = custBox.querySelectorAll('.suggest-item');
+  if(!itemsEls || itemsEls.length===0) return;
+  
+  if(e.key==='ArrowDown') { 
+    e.preventDefault(); 
+    setCustActive((custActive+1)%itemsEls.length); 
+  }
+  else if(e.key==='ArrowUp') { 
+    e.preventDefault(); 
+    setCustActive((custActive-1+itemsEls.length)%itemsEls.length); 
+  }
+  else if(e.key==='Enter') { 
+    e.preventDefault(); 
+    if(custActive>=0) itemsEls[custActive].click(); 
+  }
+  else if(e.key==='Escape') { 
+    hideCustSuggestions(); 
+  }
+}
+
+function selectCustomer(c) {
+  selectedCustomer = c;
+  custInput.value = c.customerName || '';
+}
+
+/* ---------- Item Search ---------- */
+const itemInput = document.getElementById('itemSearch');
+const itemsBox = document.getElementById('itemsDropdown');
+let itemActive = -1;
+
+itemInput.addEventListener('input', onItemInput);
+itemInput.addEventListener('keydown', onItemKeyDown);
+itemInput.addEventListener('focus', () => showItemsDropdown(items.slice(0,50)));
+document.addEventListener('click', (e) => {
+  if(!itemInput.contains(e.target) && !itemsBox.contains(e.target)) hideItemsDropdown();
+});
+
+function onItemInput(e) {
+  const q = e.target.value.trim().toLowerCase();
+  if(!q) return showItemsDropdown(items.slice(0,50));
+  const filtered = items.filter(it => 
+    (it.itemName||'').toLowerCase().includes(q) || 
+    (it.itemCode||'').toLowerCase().includes(q)
+  );
+  showItemsDropdown(filtered.slice(0,50));
+}
+
+function showItemsDropdown(list) {
+  itemsBox.innerHTML = ''; 
+  itemActive = -1;
+  if(!list || list.length===0) { itemsBox.style.display='none'; return; }
+  
+  list.forEach((it, idx) => {
+    const div = document.createElement('div');
+    div.className = 'item-row d-flex justify-content-between';
+    div.innerHTML = `
+      <div><strong>${escapeHtml(it.itemName)}</strong></div>
+    `;
+    
+    div.addEventListener('click', (ev) => {
+      ev.preventDefault();
+      selectedItemForCart = it;
+      itemInput.value = it.itemName;
+      document.getElementById('manualPrice').value = it.price;
+      document.getElementById('manualQty').focus();
+      hideItemsDropdown();
+    });
+    
+    div.addEventListener('mouseenter', () => setItemActive(idx));
+    itemsBox.appendChild(div);
+  });
+  itemsBox.style.display = 'block';
+}
+
+function hideItemsDropdown() { 
+  itemsBox.style.display = 'none'; 
+  itemActive = -1; 
+}
+
+function setItemActive(i) {
+  const nodes = itemsBox.querySelectorAll('.item-row');
+  nodes.forEach(x => x.classList.remove('active'));
+  if(i >= 0 && i < nodes.length) { 
+    nodes[i].classList.add('active'); 
+    itemActive = i; 
+    nodes[i].scrollIntoView({block:'nearest'}); 
+  }
+}
+
+function onItemKeyDown(e) {
+  const nodes = itemsBox.querySelectorAll('.item-row');
+  if(!nodes || nodes.length===0) return;
+  
+  if(e.key==='ArrowDown') { 
+    e.preventDefault(); 
+    setItemActive((itemActive+1)%nodes.length); 
+  }
+  else if(e.key==='ArrowUp') { 
+    e.preventDefault(); 
+    setItemActive((itemActive-1+nodes.length)%nodes.length); 
+  }
+  else if(e.key==='Enter') { 
+    e.preventDefault();
+    if(itemActive>=0) {
+      // Store the selected item but don't add to cart yet
+      selectedItemForCart = items.find(it => 
+        it.itemName === nodes[itemActive].querySelector('strong').textContent
+      );
+      if (selectedItemForCart) {
+        document.getElementById('manualPrice').value = selectedItemForCart.price;
+        document.getElementById('manualQty').focus();
+      }
+    }
+  }
+  else if(e.key==='Escape') { 
+    hideItemsDropdown(); 
+  }
+}
+
+/* ---------- Cart Operations ---------- */
+function addItemToCart(row) {
+  // If item exists in cart, update quantity
+  const idx = cart.findIndex(c => 
+    c.itemCode && row.itemCode && 
+    c.itemCode === row.itemCode && 
+    c.itemPrice === row.itemPrice
+  );
+  
+  if(idx >= 0) {
+    cart[idx].quantity = Number(cart[idx].quantity) + Number(row.quantity || 1);
+  } else {
+    cart.push({
+      itemCode: row.itemCode || '',
+      itemName: row.itemName || 'Unnamed',
+      itemPrice: Number(row.itemPrice || 0),
+      quantity: Number(row.quantity || 1)
+    });
+  }
+  renderCart();
+}
+
+document.getElementById('manualQty').addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') {
+    e.preventDefault();
+    if (!selectedItemForCart) {
+      alert('Please select an item first');
+      return;
+    }
+    
+    const qty = Number(this.value) || 1;
+    if (qty <= 0) {
+      alert('Quantity must be at least 1');
+      return;
+    }
+    
+    addItemToCart({
+      itemCode: selectedItemForCart.itemCode,
+      itemName: selectedItemForCart.itemName,
+      itemPrice: Number(selectedItemForCart.price),
+      quantity: qty
+    });
+    
+    // Reset for next item
+    selectedItemForCart = null;
+    itemInput.value = '';
+    document.getElementById('manualPrice').value = '';
+    this.value = '1';
+    itemInput.focus();
+  }
+});
+
+document.getElementById('addManualBtn').addEventListener('click', function(e) {
+  e.preventDefault();
+  if (!selectedItemForCart) {
+    const name = (document.getElementById('itemSearch').value || '').trim();
+    if (!name) {
+      alert('Please select or search for an item first');
+      return;
+    }
+    // For manual items not in the system
+    selectedItemForCart = {
+      itemCode: '',
+      itemName: name,
+      price: Number(document.getElementById('manualPrice').value || 0)
+    };
+  }
+  
+  const qty = Number(document.getElementById('manualQty').value) || 1;
+  if (qty <= 0) {
+    alert('Quantity must be at least 1');
+    return;
+  }
+  
+  addItemToCart({
+    itemCode: selectedItemForCart.itemCode,
+    itemName: selectedItemForCart.itemName,
+    itemPrice: Number(selectedItemForCart.price),
+    quantity: qty
+  });
+  
+  // Reset for next item
+  selectedItemForCart = null;
+  itemInput.value = '';
+  document.getElementById('manualPrice').value = '';
+  document.getElementById('manualQty').value = '1';
+  itemInput.focus();
+});
+
+function renderCart() {
+  const tbody = document.getElementById('cartBody');
+  tbody.innerHTML = '';
+  
+  let subtotal = 0;
+  
+  cart.forEach((item, index) => {
+    const lineTotal = item.itemPrice * item.quantity;
+    subtotal += lineTotal;
+    
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td>${escapeHtml(item.itemName)}</td>
+      <td class="text-right">${money(item.itemPrice)}</td>
+      <td class="text-center">${item.quantity}</td> 
+      <td class="text-right">${money(lineTotal)}</td>
+      <td class="text-center">
+        <button class="btn btn-sm btn-danger remove-btn" data-index="${index}">
+          <i class="fas fa-trash-alt"></i>
+        </button>
+      </td>
+    `;
+    tbody.appendChild(tr);
+  });
+
+  // Add event listeners for new elements
+  tbody.querySelectorAll('.qty-input').forEach(input => {
+    input.addEventListener('change', (e) => {
+      const idx = e.target.dataset.index;
+      const newQty = Math.max(1, parseInt(e.target.value) || 1);
+      cart[idx].quantity = newQty;
+      renderCart(); // Re-render to update line totals
+    });
+  });
+
+  tbody.querySelectorAll('.remove-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      const idx = e.target.closest('button').dataset.index;
+      cart.splice(idx, 1);
+      renderCart();
+    });
+  });
+}
+
+/* ---------- Save Operations ---------- */
+function buildPayload() {
+  if(!selectedCustomer) {
+    const typed = (document.getElementById('customerSearch').value || '').trim();
+    if(!typed) { throw new Error('Please select a customer'); }
+    
+    const match = customers.find(c => 
+      (c.customerName||'').toLowerCase() === typed.toLowerCase()
+    );
+    if(match) selectedCustomer = match;
+    else throw new Error('Please choose a valid customer from suggestions');
+  }
+  
+  if(cart.length === 0) throw new Error('Cart is empty');
+
+  return {
+    customerId: selectedCustomer.customerId,
+    discountPercentage: Number(document.getElementById('discountInput').value || 0),
+    purchaseItems: cart.map(c => ({
+      itemCode: c.itemCode || '',
+      itemName: c.itemName,
+      itemPrice: c.itemPrice,
+      quantity: c.quantity
+    }))
+  };
+}
+
+document.getElementById('saveBtn').addEventListener('click', async () => {
+  try {
+    const payload = buildPayload();
+    const res = await fetch('http://localhost:8083/api/v1/purchase/save', {
+      method: 'POST', 
+      headers: {'Content-Type':'application/json'}, 
+      body: JSON.stringify(payload)
+    });
+    
+    if(!res.ok) {
+      const txt = await res.text();
+      throw new Error(txt || 'Save failed');
+    }
+    
+    const data = await res.json();
+    alert('Saved. Purchase Code: ' + (data.purchaseCode || 'N/A'));
+  } catch(err) {
+    alert('Save error: ' + (err.message||err));
+    console.error(err);
+  }
+});
+
+document.getElementById('saveCalcBtn').addEventListener('click', async () => {
+  try {
+    const payload = buildPayload();
+    const res = await fetch('http://localhost:8083/api/v1/purchase/save', {
+      method: 'POST', 
+      headers: {'Content-Type':'application/json'}, 
+      body: JSON.stringify(payload)
+    });
+    
+    if(!res.ok) {
+      const txt = await res.text();
+      throw new Error(txt || 'Save failed');
+    }
+    
+    const data = await res.json();
+    showInvoiceModal(data);
+    $('#invoiceModal').modal('show');
+  } catch(err) {
+    alert('Save & Calculate error: ' + (err.message||err));
+    console.error(err);
+  }
+});
+
+/* ---------- Invoice Modal ---------- */
+function showInvoiceModal(data) {
+    // Set header information (your existing code)
+    document.getElementById('invoiceNumber').textContent = data.purchaseCode || 'N/A';
+    document.getElementById('invoiceCustomer').textContent = selectedCustomer?.customerName || 'Walk-in Customer';
+    document.getElementById('invoiceDateDisplay').textContent = new Date().toLocaleDateString();
+    
+    // Calculate totals (your existing code)
+    let subtotal = 0;
+    const itemsList = data.purchaseItems || cart;
+    
+    // Clear and rebuild items table (your existing code)
+    const invoiceItems = document.getElementById('invoiceItems');
+    invoiceItems.innerHTML = '';
+    
+    itemsList.forEach(item => {
+        const row = document.createElement('tr');
+        const lineTotal = item.itemPrice * item.quantity;
+        subtotal += lineTotal;
+        
+        row.innerHTML = `
+            <td>${escapeHtml(item.itemName)}</td>
+            <td class="text-right">${money(item.itemPrice)}</td>
+            <td class="text-center">${item.quantity}</td>
+            <td class="text-right">${money(lineTotal)}</td>
+        `;
+        invoiceItems.appendChild(row);
+    });
+    
+    // Calculate discount and total (your existing code with slight format improvement)
+    const discountPercentage = Number(document.getElementById('discountInput').value || 0);
+    const discountAmount = subtotal * discountPercentage / 100;
+    const total = subtotal - discountAmount;
+    
+    // Set totals (your existing format)
+    document.getElementById('invoiceSubtotal').textContent = money(subtotal);
+    document.getElementById('invoiceDiscount').textContent = `-${money(discountAmount)} (${discountPercentage}%)`;
+    document.getElementById('invoiceTotal').textContent = money(total);
+    
+    /* NEW ADDITIONS FOR MODAL FUNCTIONALITY */
+    // Print button handler
+    document.getElementById('printInvoiceBtn').onclick = function() {
+        const printContent = document.getElementById('invoiceBody').innerHTML;
+        const originalContent = document.body.innerHTML;
+        
+        document.body.innerHTML = `
+            <div class="container p-4">${printContent}</div>
+            <button onclick="window.location.reload()" class="btn btn-primary no-print">Back</button>
+        `;
+        window.print();
+        document.body.innerHTML = originalContent;
+        $('#invoiceModal').modal('show'); // Reopen modal after printing
+    };
+    
+    // Finally show the modal (new addition)
+    $('#invoiceModal').modal('show');
+}
+
+document.getElementById('printInvoiceBtn').addEventListener('click', () => {
+  window.print();
+});
+
+// Clear form when modal is closed
+$('#invoiceModal').on('hidden.bs.modal', function () {
+  clearAll();
+});
+
+/* ---------- Clear Form ---------- */
+document.getElementById('clearBtn').addEventListener('click', (e) => {
+  e.preventDefault();
+  if(confirm('Clear form and cart?')) clearAll();
+});
+
+function clearAll() {
+  cart = [];
+  selectedCustomer = null;
+  document.getElementById('billingForm').reset();
+  document.getElementById('customerSearch').value = '';
+  document.getElementById('itemSearch').value = '';
+  renderCart();
+  hideCustSuggestions();
+  hideItemsDropdown();
+}
+</script>
+</body>
+</html>

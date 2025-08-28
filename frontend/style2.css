@@ -1,0 +1,583 @@
+@import url('https://fonts.googleapis.com/css2?family=Miniver&family=Poppins:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+:root {
+    --white-color:#fff;
+    --dark-color:#252525;
+    --primary-color:#160000dd;
+    --secondary-color:#f3961c;
+    --light-pink-color:#faf4f5;
+    --medium-gray-color:#ccc;
+
+    --font-size-s:0.9rem;
+    --font-size-n:1rem;
+    --font-size-m:1.12rem;
+    --font-size-l:1.5rem;
+    --font-size-xl:2rem;
+    --font-size-xxl:2.3rem;
+
+    --font-weight-normal: 400;
+    --font-weight-medium: 500;
+    --font-weight-semibold: 600;
+    --font-weight-bold: 700;
+
+    --boder-radius-s:8px;
+    --boder-radius-m:30px;
+    --boder-radius-circle:50%;
+
+    --site-max-width:1300px;
+
+}
+
+/*styling for whole site*/
+ul {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+}
+
+button {
+    cursor: pointer;
+    border: none;
+    background: none;
+}
+
+/*navbar styling*/
+header{
+    position: fixed;
+    width: 100%;
+    z-index: 5;
+    background: var(--primary-color);
+    padding-left: 2%;
+}
+
+header .navbar{
+    display: flex;
+    padding: 10px;
+    padding-left: 0px;
+    align-items: center;
+    justify-content: space-between;
+}
+.navbar .logo-text {
+    color: var(--white-color);
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-semibold);
+}
+
+.navbar .nav-menu{
+    display: flex;
+    gap: 25px;
+}
+.navbar .nav-menu .nav-link{
+    padding: 10px 10px;
+    font-size: var(--font-size-m);
+    border-radius: var(--boder-radius-m);
+    color: var(--white-color);
+    transition: 0.3s ease;
+}
+
+.navbar .nav-menu .nav-link:hover {
+    color: var(--primary-color);
+    background: var(--secondary-color);
+}
+
+.navbar :where(#menu-close-button, #menu-open-button){
+        display: none;
+    }
+
+.logo {
+  width: 100vw;         /* Full width of the viewport */
+  height: 250px;/*  Adjust height as needed */
+  object-fit: cover;     /* Keeps image proportions nicely */
+  display: block;        /* Removes unwanted gaps */
+  max-height: 250px; 
+  margin: 0;
+  border: none; 
+}
+
+.container{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-start; 
+  margin: 0px;
+  width: 100vw;                  /* ✅ Force it to take the full width of the viewport */
+  box-sizing: border-box;
+  gap: 20px;
+  flex-wrap: wrap;
+  
+}
+
+
+.form-box {
+  text-align: center;
+  flex: 0 0 auto;
+  margin-top: 25px;
+  margin-left: 25px;
+  width: 300px;
+  padding: 20px;
+  border: 1px solid #ddd;
+  background-color:  #bbb;
+  box-shadow: 0 2px 8px #160000dd;
+  font-family: sans-serif;
+}
+
+.form-box h3 {
+  text-align: center;
+  color: #333;
+}
+
+.form-box label {
+  display: block;
+  margin-top: 15px;
+  margin-bottom: 5px;
+  color: #383838;
+}
+
+.form-box input,
+.form-box textarea {
+  width: 95%;
+  padding: 7px;
+  border: 1px solid #bbb;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+.form-box button {
+  margin-top: 20px;
+  width: 60%; /* 🔄 20% */
+  padding: 10px;
+  background-color: #341b0281;
+  color: white;
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  align-items: center;
+  margin-left: 75px; 
+  display: block;       /* Ensure it's block-level for full width */
+  margin-left: auto;    /* 🔄 Center the button */
+  margin-right: auto;
+  
+}
+
+.form-box button:hover {
+  background-color: #130a0181;
+}
+
+
+.table-responsive.mt-4 {
+  margin: 25px;
+  flex: 0 1 auto;
+  width: 1000px;
+  overflow: auto;
+  border-collapse: collapse;
+  font-family: Arial, sans-serif;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-color: #555;
+}
+
+th, td {
+  padding: 12px 15px;
+  text-align: center;
+  border-bottom: 1px solid #ddd;
+  width: 1000px;
+  border-color: #ddd;
+}
+
+thead {
+  width: 1000px;
+  background-color: #160000dd;
+  color: #ddd;
+  border-color: #ddd;
+}
+
+tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+  width: 1000px;
+  border-color: #ddd;
+}
+
+tbody tr:hover {
+  background-color: #f1f1f1;
+  cursor: pointer;
+  
+}
+
+.delete-btn {
+  color: white;
+  background-color: #dc3545; /* Bootstrap red */
+  border: none;
+  border-radius: 4px;
+  padding: 4px 8px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.delete-btn:hover {
+  background-color: #bd2130; /* Darker red */
+}
+
+
+
+@media screen and (max-width:900px){
+    :root{
+    --font-size-m:1rem;
+    --font-size-l:1.3rem;
+    --font-size-xl:1.5rem;
+    --font-size-xxl:1.8rem;
+    }
+    body.show-mobile-menu header::before{
+        content: "";
+        position: fixed;
+        left: 0;
+        top: 0;
+        height: 100%;
+        width: 100%;
+        backdrop-filter: blur(5px);
+        background: rgba(0,0,0,0.2);
+    }
+    .navbar :where(#menu-close-button, #menu-open-button){
+        display: block;
+        font-size: var(--font-size-l);
+    }
+
+    .navbar #menu-close-button{
+        position: absolute;
+        right: 30px;
+        top: 30px;
+    }
+
+    .navbar #menu-open-button{
+        color: var(--white-color);
+    }
+
+    .navbar .nav-menu{
+        display: block;
+        position: fixed;
+        left: -300px;
+        top: 0;
+        width: 300px;
+        height: 100%;
+        display: flex;
+        background: var(--white-color);
+        flex-direction: column;
+        align-items: center;
+        padding-top: 100px;
+    }
+
+    body.show-mobile-menu .navbar .nav-menu{
+        left: 0;
+    }
+
+    .navbar .nav-menu .nav-link{
+        color: var(--dark-color);
+        display: block;
+        margin-top: 17px;
+        font-size: var(--font-size-l);
+    }
+  }
+
+  .suggestions, .items-dropdown {
+      position: absolute;
+      z-index: 1600;
+      background: #fff;
+      border: 1px solid rgba(0,0,0,.15);
+      width: 270px;
+      max-height: 300px;
+      overflow-y: auto;
+      box-shadow: 0 6px 12px rgba(0,0,0,.175);
+      display: none;
+    }
+    .suggest-item, .item-row {
+      padding: 0;
+      cursor: pointer;
+    }
+    .suggest-item:hover, .item-row:hover, .suggest-item.active, .item-row.active {
+      background: #f1f1f1;
+    }
+    .cart-table td, .cart-table th { vertical-align: middle; }
+    .small-muted { font-size: .85rem; color: #6c757d; }
+
+    /* Bill/Receipt Style Tables */
+.receipt-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: 'Courier New', monospace;
+    margin: 20px 0;
+}
+
+.receipt-table thead {
+    border-bottom: 2px dashed #333;
+    background: #342f2f;
+}
+
+.receipt-table th {
+    text-align: left;
+    padding: 8px 5px;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 0.9em;
+}
+
+.receipt-table td {
+    padding: 8px 5px;
+    border-bottom: 1px dotted #ddd;
+}
+
+.receipt-table .text-center {
+    text-align: center;
+}
+
+.receipt-table .text-center {
+    text-align: center;
+}
+
+/* Highlight important totals */
+.receipt-total {
+    font-weight: bold;
+    border-top: 2px dashed #333 !important;
+    border-bottom: 3px double #333 !important;
+}
+
+/* Invoice header styling */
+.invoice-header {
+    text-align: center;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #333;
+    padding-bottom: 10px;
+}
+
+.invoice-header h2 {
+    margin: 0;
+    font-size: 1.8em;
+}
+
+.invoice-meta {
+    display: flex;
+    justify-content: space-between;
+    margin: 15px 0;
+    font-size: 0.9em;
+}
+
+/* For print media */
+@media print {
+    body {
+        font-size: 12pt;
+        color: #000;
+    }
+    
+    .no-print {
+        display: none !important;
+    }
+    
+    .receipt-table {
+        font-size: 11pt;
+    }
+}
+
+/* Print Styles */
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  #invoiceBody, #invoiceBody * {
+    visibility: visible;
+  }
+  #invoiceBody {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    padding: 20px;
+    background: white;
+  }
+  .no-print {
+    display: none !important;
+  }
+  
+  /* Ensure table breaks properly */
+  table { page-break-inside:auto }
+  tr    { page-break-inside:avoid; page-break-after:auto }
+}
+
+.box{
+  height: relative;
+  width: 500px;
+  border-radius: 10px;
+  background: #ded9d9;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  padding: 0 20px;
+  box-shadow: 0 3x 8px #666(0, 0, 0, 0.1);
+  z-index: 1000;
+  display: none;
+}
+
+.box .myclose {
+  position: absolute;         /* So it can be positioned over the modal */
+  top: 15px;
+  right: 20px;
+  font-size: 24px;            /* Bigger X */
+  color: #333;                /* Dark grey */
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.box .myclose:hover {
+  color: red;                 /* Change color on hover */
+}
+
+.invoice-header{
+  margin-top: 25px;
+}
+
+.modal-footer{
+  display: flex;
+  justify-content: flex-end;
+}
+
+#printInvoiceBtn{
+  height: 34px;
+  width: 100px;
+  border-radius: 50px;
+  font-size: 15px;
+  background: #b4b0b0;
+  outline: none;
+  border: none;
+  box-shadow: 0 3px 8px #666(0, 0, 0, 0.3);
+  cursor: pointer;
+  animation: animate .2s linear;
+  margin-bottom: 20px;
+  margin-top: 20px;
+}
+
+#printInvoiceBtn:hover {
+  background: #f0f0f0;
+  letter-spacing: 1px
+}
+
+.myCart button {
+  height: 34px;
+  width: 100px;
+  border-radius: 50px;
+  font-size: 15px;
+  background: #b4b0b0;
+  outline: none;
+  border: none;
+  box-shadow: 0 3px 8px #666(0, 0, 0, 0.3);
+  cursor: pointer;
+  animation: animate .2s linear;
+}
+
+
+.myCart button:hover {
+  background: #f0f0f0;
+  letter-spacing: 1px
+}
+
+.myCart {
+  text-align: center;
+  flex: 0 0 auto;
+  margin-top: 25px;
+  margin-left: 25px;
+  width: 800px;
+  height: relative;
+  padding: 20px;
+  border: 1px solid #ddd;
+  background-color:  #fcfafa;
+  box-shadow: 0 2px 8px #160000dd;
+  font-family: sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+
+/* Specific styles for cart remove buttons ONLY */
+.cart-table .remove-btn {
+  /* Visual styling */
+  background-color: #dc3545 !important; /* Red color */
+  color: white !important;
+  border: none !important;
+  border-radius: 4px !important;
+  padding: 0.25rem 0.5rem !important;
+  
+  /* Size and spacing */
+  width: 30px !important;
+  height: 30px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  
+  /* Hover effects */
+  transition: all 0.2s !important;
+}
+
+.cart-table .remove-btn:hover {
+  background-color: #c82333 !important;
+  transform: scale(1.05) !important;
+}
+
+.cart-table .remove-btn:active {
+  transform: scale(0.95) !important;
+}
+
+/* Icon inside button */
+.cart-table .remove-btn .fa-trash-alt {
+  font-size: 0.8rem !important;
+  pointer-events: none !important;
+}
+
+.billing-wrapper {
+  position: relative;
+  width: 80%;
+  margin: 0 auto;
+  padding: 20px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.button-group{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.myButtons{
+  width: 60%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.cart-table{
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+#itemsDropdown{
+  width: 240px;
+  margin-left: 10px;
+}
+
+#custSuggestions{
+  width: 240px;
+  margin-left: 10px;
+}
