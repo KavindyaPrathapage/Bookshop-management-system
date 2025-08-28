@@ -66,59 +66,61 @@ Open browser and navigate to: http://localhost:8083
 
 ---
 
-##🌐 API Endpoints
--**POST /api/login** - User authentication
--**POST /api/register** - User registration with email/phone validation
--**GET /api/customers** - Retrieve customer data
--**POST /api/items** - Add new inventory items
--**POST /api/purchases** - Create new transactions
+## 🌐 API Endpoints
+
+- **POST /api/login** - User authentication
+- **POST /api/register** - User registration with email/phone validation
+- **GET /api/customers** - Retrieve customer data
+- **POST /api/items** - Add new inventory items
+- **POST /api/purchases** - Create new transactions
 
 ---
 
-##📸 Demo Video
+## 📸 Demo Video
+
 **https://img.youtube.com/vi/YOUR_VIDEO_ID/0.jpg**
 
 ---
 
-##🚦 Validation Features
+## 🚦 Validation Features
 
--**Email Validation: **Ensures proper Gmail/email format**
--**Phone Validation: **Uses country code API to validate international numbers
--**Input Sanitization: **Prevents SQL injection and XSS attacks
--**Session Management: **Secure user session handling
-
----
-
-##📦 Dependencies
-
--**Spring Boot Web**
--**Spring Data JPA**
--**MySQL Connector**
--**ModelMapper**
--**Lombok**
--**Validation API**
+- **Email Validation:** Ensures proper Gmail/email format**
+- **Phone Validation:** Uses country code API to validate international numbers
+- **Input Sanitization:** Prevents SQL injection and XSS attacks
+- **Session Management:** Secure user session handling
 
 ---
 
-##👨‍💻 Development
+## 📦 Dependencies
 
--**Backend: **Spring Boot 3.5.3
--**Java Version: **18
--**Database: **MySQL 8.0+
--**Frontend: **Vanilla JS with modern CSS
-
----
-
-##📝 License
-
--**This project is licensed under the MIT License - see the LICENSE file for details.**
+- **Spring Boot Web**
+- **Spring Data JPA**
+- **MySQL Connector**
+- **ModelMapper**
+- **Lombok**
+- **Validation API**
 
 ---
 
-##🤝 Contributing
+## 👨‍💻 Development
 
--**Fork the project**
--**Create your feature branch (git checkout -b feature/AmazingFeature)**
--**Commit your changes (git commit -m 'Add some AmazingFeature')**
--**Push to the branch (git push origin feature/AmazingFeature)**
--**Open a Pull Request**
+- **Backend:** Spring Boot 3.5.3
+- **Java Version:** 18
+- **Database:** MySQL 8.0+
+- **Frontend:** Vanilla JS with modern CSS
+
+---
+
+## 📝 License
+
+- **This project is licensed under the MIT License - see the LICENSE file for details.**
+
+---
+
+## 🤝 Contributing
+
+- **Fork the project **
+- **Create your feature branch (git checkout -b feature/AmazingFeature)**
+- **Commit your changes (git commit -m 'Add some AmazingFeature')**
+- **Push to the branch (git push origin feature/AmazingFeature)**
+- **Open a Pull Request**
