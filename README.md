@@ -27,29 +27,6 @@ A full-stack application built to manage bookshop operations with a custom authe
 
 ---
 
-## 📂 Project Structure
-Bookshop-management-system/
-├── backend/                 # Spring Boot Application
-│   ├── src/
-│   │   └── main/
-│   │       ├── java/com/pahana_edu/demo/
-│   │       │   ├── controllers/     # REST API Controllers
-│   │       │   ├── models/          # Data Models/Entities
-│   │       │   ├── repositories/    # Data Access Layer
-│   │       │   ├── services/        # Business Logic
-│   │       │   └── BillingSystemApplication.java
-│   │       └── resources/
-│   │           ├── application.properties # DB config
-│   │           └── static/          # Frontend assets
-│   └── pom.xml                     # Maven dependencies
-├── frontend/                # Client-side code
-│   ├── css/
-│   ├── js/
-│   └── index.html
-└── README.md
-
----
-
 ## 🗃️ Database Schema
 
 - **user_model** – System users with authentication details  
@@ -90,53 +67,58 @@ Open browser and navigate to: http://localhost:8083
 ---
 
 ##🌐 API Endpoints
--POST /api/login - User authentication
--POST /api/register - User registration with email/phone validation
--GET /api/customers - Retrieve customer data
--POST /api/items - Add new inventory items
--POST /api/purchases - Create new transactions
+-**POST /api/login** - User authentication
+-**POST /api/register** - User registration with email/phone validation
+-**GET /api/customers** - Retrieve customer data
+-**POST /api/items** - Add new inventory items
+-**POST /api/purchases** - Create new transactions
 
 ---
 
 ##📸 Demo Video
-https://img.youtube.com/vi/YOUR_VIDEO_ID/0.jpg
+**https://img.youtube.com/vi/YOUR_VIDEO_ID/0.jpg**
 
 ---
 
 ##🚦 Validation Features
--Email Validation: Ensures proper Gmail/email format
--Phone Validation: Uses country code API to validate international numbers
--Input Sanitization: Prevents SQL injection and XSS attacks
--Session Management: Secure user session handling
+
+-**Email Validation: **Ensures proper Gmail/email format**
+-**Phone Validation: **Uses country code API to validate international numbers
+-**Input Sanitization: **Prevents SQL injection and XSS attacks
+-**Session Management: **Secure user session handling
 
 ---
 
 ##📦 Dependencies
--Spring Boot Web
--Spring Data JPA
--MySQL Connector
--ModelMapper
--Lombok
--Validation API
+
+-**Spring Boot Web**
+-**Spring Data JPA**
+-**MySQL Connector**
+-**ModelMapper**
+-**Lombok**
+-**Validation API**
 
 ---
 
 ##👨‍💻 Development
--Backend: Spring Boot 3.5.3
--Java Version: 18
--Database: MySQL 8.0+
--Frontend: Vanilla JS with modern CSS
+
+-**Backend: **Spring Boot 3.5.3
+-**Java Version: **18
+-**Database: **MySQL 8.0+
+-**Frontend: **Vanilla JS with modern CSS
 
 ---
 
 ##📝 License
--This project is licensed under the MIT License - see the LICENSE file for details.
+
+-**This project is licensed under the MIT License - see the LICENSE file for details.**
 
 ---
 
 ##🤝 Contributing
--Fork the project
--Create your feature branch (git checkout -b feature/AmazingFeature)
--Commit your changes (git commit -m 'Add some AmazingFeature')
--Push to the branch (git push origin feature/AmazingFeature)
--Open a Pull Request
+
+-**Fork the project**
+-**Create your feature branch (git checkout -b feature/AmazingFeature)**
+-**Commit your changes (git commit -m 'Add some AmazingFeature')**
+-**Push to the branch (git push origin feature/AmazingFeature)**
+-**Open a Pull Request**
