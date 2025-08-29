@@ -41,28 +41,28 @@ A full-stack application built to manage bookshop operations with a custom authe
 ## 🔧 Setup & Installation
 
 ### 1. Clone the repository
-bash
-git clone https://github.com/your-username/bookshop-management-system.git
-cd bookshop-management-system
+
+**bash**
+- git clone https://github.com/your-username/bookshop-management-system.git
+- cd bookshop-management-system
 
 ### 2. Database Setup
 
-Install MySQL and create database:
+**Install MySQL and create database:**
+- CREATE DATABASE my_database;
 
-sql
-CREATE DATABASE my_database;
 ### 3.Configure Application
 
-Update backend/src/main/resources/application.properties with your MySQL credentials
+- Update backend/src/main/resources/application.properties with your MySQL credentials
 
 ### 4.Run the Application
 
-bash
-cd backend
-mvn spring-boot:run
+- cd backend
+- mvn spring-boot:run
+
 ### 5.Access the Application
 
-Open browser and navigate to: http://localhost:8083
+- Open browser and navigate to: http://localhost:8083
 
 ---
 
@@ -119,7 +119,7 @@ Open browser and navigate to: http://localhost:8083
 
 ## 🤝 Contributing
 
-- **Fork the project **
+- **Fork the project**
 - **Create your feature branch (git checkout -b feature/AmazingFeature)**
 - **Commit your changes (git commit -m 'Add some AmazingFeature')**
 - **Push to the branch (git push origin feature/AmazingFeature)**
